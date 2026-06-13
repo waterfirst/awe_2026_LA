@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWE 2026 LA 출장 보고서</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --sf: #1a1a24;
+    --bd: #2a2a3a;
+    --ac: #6366f1;
+    --tx: #e4e4ec;
+    --mt: #888898;
+    --gn: #22c55e;
+    --pk: #ec4899;
+    --gd: #f59e0b;
+    --cy: #06b6d4;
+    --pp: #a78bfa;
+    --rd: #ef4444;
+  }
+  [data-theme="light"] {
+    --bg: #f5f5f7;
+    --sf: #ffffff;
+    --bd: #e0e0e8;
+    --ac: #4f46e5;
+    --tx: #1a1a2e;
+    --mt: #6b6b80;
+    --gn: #16a34a;
+    --pk: #db2777;
+    --gd: #d97706;
+    --cy: #0891b2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--tx); font-family: 'Apple SD Gothic Neo','Noto Sans KR',sans-serif; line-height: 1.6; min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: var(--sf);
+    border-bottom: 1px solid var(--bd);
+    padding: 14px 18px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 1rem; font-weight: 700; }
+  header h1 span { color: var(--ac); }
+  .theme-btn {
+    background: var(--bd); border: none; border-radius: 6px;
+    padding: 5px 10px; color: var(--tx); cursor: pointer; font-size: 0.8rem;
+  }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--sf);
+    border-bottom: 1px solid var(--bd);
+    overflow-x: auto; white-space: nowrap;
+    scrollbar-width: none; position: sticky; top: 49px; z-index: 99;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    display: inline-block; padding: 11px 18px;
+    font-size: 0.82rem; color: var(--mt);
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  nav button:hover { color: var(--tx); }
+  nav button.active { color: var(--ac); border-bottom-color: var(--ac); font-weight: 700; }
+
+  /* ── Tab ── */
+  .tab { display: none; padding: 20px 16px; max-width: 900px; margin: 0 auto; }
+  .tab.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--sf);
+    border: 1px solid var(--bd);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; }
+  .card p { font-size: 0.82rem; color: var(--mt); line-height: 1.7; margin-bottom: 6px; }
+
+  /* ── Day cards ── */
+  .day {
+    background: var(--sf);
+    border: 1px solid var(--bd);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .day-hdr {
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; font-size: 0.88rem; font-weight: 600;
+    user-select: none;
+  }
+  .day-hdr:hover { background: rgba(99,102,241,0.06); }
+  .day-body { display: none; padding: 6px 16px 14px; border-top: 1px solid var(--bd); }
+  .day.open .day-body { display: block; }
+  .arrow { font-size: 0.65rem; color: var(--mt); transition: transform 0.2s; }
+  .day.open .arrow { transform: rotate(180deg); }
+  .day-tag {
+    font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-left: 8px;
+  }
+  .tag-ci { background: rgba(6,182,212,0.15); color: var(--cy); }
+  .tag-ex { background: rgba(99,102,241,0.15); color: var(--ac); }
+  .tag-po { background: rgba(245,158,11,0.15); color: var(--gd); }
+  .tag-out { background: rgba(34,197,94,0.15); color: var(--gn); }
+
+  /* ── Events ── */
+  .evt {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 0; border-bottom: 1px solid rgba(42,42,58,0.5); font-size: 0.82rem;
+  }
+  .evt:last-child { border-bottom: none; }
+  .evt-gold { background: rgba(245,158,11,0.06); border-radius: 6px; padding: 6px 8px; margin: 2px -8px; }
+  .time { font-size: 0.75rem; color: var(--mt); min-width: 75px; padding-top: 1px; flex-shrink: 0; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .dot-ac { background: var(--ac); }
+  .dot-gn { background: var(--gn); }
+  .dot-pk { background: var(--pk); }
+  .dot-gd { background: var(--gd); }
+  .dot-cy { background: var(--cy); }
+  .dot-pp { background: var(--pp); }
+  .dot-mt { background: var(--mt); }
+
+  /* ── Photo grid ── */
+  .photo-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; margin-top: 10px;
+  }
+  .photo-grid img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    border-radius: 7px; cursor: pointer; transition: opacity 0.2s;
+    border: 1px solid var(--bd);
+  }
+  .photo-grid img:hover { opacity: 0.8; }
+  .photo-ph {
+    aspect-ratio: 4/3; background: var(--bg);
+    border: 2px dashed var(--bd); border-radius: 7px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--mt); font-size: 0.72rem; text-align: center; padding: 8px; gap: 4px;
+  }
+
+  /* ── Sensing ── */
+  .sen-card { border-left: 3px solid var(--cy) !important; }
+  .sen-item {
+    border: 1px solid var(--bd); border-radius: 7px; margin-bottom: 8px; overflow: hidden;
+  }
+  .sen-hdr {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    user-select: none;
+  }
+  .sen-hdr:hover { background: rgba(6,182,212,0.05); }
+  .sen-body { display: none; padding: 10px 12px; border-top: 1px solid var(--bd); }
+  .sen-item.open .sen-body { display: block; }
+  .sen-item.open .arrow { transform: rotate(180deg); }
+  .sen-co {
+    font-size: 0.72rem; background: rgba(6,182,212,0.12);
+    color: var(--cy); padding: 1px 7px; border-radius: 20px; white-space: nowrap;
+  }
+  .sen-detail {
+    font-size: 0.8rem; color: var(--tx); line-height: 1.7; margin-bottom: 8px;
+  }
+  .sen-resp {
+    font-size: 0.78rem; color: var(--mt); background: rgba(99,102,241,0.07);
+    border-radius: 5px; padding: 6px 10px; margin-bottom: 8px; line-height: 1.6;
+  }
+  .sen-memo {
+    width: 100%; background: var(--bg); border: 1px solid var(--bd);
+    border-radius: 6px; padding: 8px 10px; color: var(--tx);
+    font-size: 0.78rem; font-family: inherit; resize: vertical; min-height: 52px;
+  }
+  .sen-chk { width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; accent-color: var(--ac); }
+  .cat-title {
+    font-size: 0.78rem; font-weight: 700; color: var(--cy);
+    margin: 14px 0 6px; padding: 4px 0; border-bottom: 1px solid var(--bd);
+  }
+
+  /* ── VIP Company cards ── */
+  .vip-card {
+    background: var(--sf); border: 1px solid var(--bd);
+    border-left: 3px solid var(--pp) !important;
+    border-radius: 10px; padding: 16px 18px; margin-bottom: 14px;
+  }
+  .vip-top { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .vip-logo {
+    width: 46px; height: 46px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--bd);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .vip-name { font-size: 0.95rem; font-weight: 700; }
+  .vip-sub { font-size: 0.75rem; color: var(--mt); margin-top: 2px; }
+  .vip-body { font-size: 0.82rem; color: var(--tx); line-height: 1.75; }
+  .vip-body b { color: var(--tx); }
+  .vip-divider { height: 1px; background: var(--bd); margin: 12px 0; }
+  .vip-tag {
+    display: inline-block; font-size: 0.7rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px;
+  }
+  .t-pp { background: rgba(167,139,250,0.15); color: var(--pp); }
+  .t-gd { background: rgba(245,158,11,0.15); color: var(--gd); }
+  .t-gn { background: rgba(34,197,94,0.15); color: var(--gn); }
+  .t-pk { background: rgba(236,72,153,0.15); color: var(--pk); }
+  .t-cy { background: rgba(6,182,212,0.15); color: var(--cy); }
+  .t-rd { background: rgba(239,68,68,0.15); color: var(--rd); }
+
+  /* ── Final tab ── */
+  .essay-block {
+    background: var(--sf); border: 1px solid var(--bd);
+    border-left: 3px solid var(--ac);
+    border-radius: 10px; padding: 18px; margin-bottom: 14px;
+  }
+  .essay-block.gn { border-left-color: var(--gn); }
+  .essay-block.pk { border-left-color: var(--pk); }
+  .essay-block.gd { border-left-color: var(--gd); }
+  .essay-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; }
+  .essay-body { font-size: 0.83rem; color: var(--tx); line-height: 1.85; }
+  .essay-body b { color: var(--ac); }
+
+  .action-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 7px 0; border-bottom: 1px solid var(--bd); font-size: 0.82rem;
+  }
+  .action-row:last-child { border-bottom: none; }
+  .action-num {
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(99,102,241,0.15); color: var(--ac);
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .action-done { background: rgba(34,197,94,0.15); color: var(--gn); }
+  .action-pend { background: rgba(245,158,11,0.15); color: var(--gd); }
+
+  /* ── Placeholder banner ── */
+  .ph-banner {
+    background: rgba(245,158,11,0.08); border: 1px dashed var(--gd);
+    border-radius: 8px; padding: 10px 14px; font-size: 0.78rem;
+    color: var(--gd); margin-bottom: 16px; line-height: 1.6;
+  }
+
+  /* ── Image modal ── */
+  #modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88); z-index: 999;
+    align-items: center; justify-content: center;
+  }
+  #modal.open { display: flex; }
+  #modal img { max-width: 92vw; max-height: 88vh; border-radius: 10px; }
+  .modal-close {
+    position: absolute; top: 14px; right: 18px;
+    font-size: 1.8rem; color: #fff; cursor: pointer; line-height: 1;
+  }
+
+  @media(max-width:600px) {
+    .tab { padding: 14px 12px; }
+    .photo-grid { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌐 <span>AWE 2026 LA</span> 출장 보고서</h1>
+  <button class="theme-btn" onclick="toggleTheme()">☀️ Light</button>
+</header>
+
+<nav>
+  <button class="active" onclick="openTab(0,this)">📋 일정</button>
+  <button onclick="openTab(1,this)">🔍 전시센싱</button>
+  <button onclick="openTab(2,this)">🌟 주목기업</button>
+  <button onclick="openTab(3,this)">💡 최종소감</button>
+</nav>
+
+<!-- ═══════════════════ TAB 0: 일정 ═══════════════════ -->
+<div class="tab active" id="t0">
+
+  <div class="ph-banner">
+    ⚠️ <b>작성 가이드</b> — 이 파일은 템플릿입니다.<br>
+    현장에서 <code>notes/</code> 폴더에 메모 저장 → Antigravity로 이 파일 업데이트<br>
+    <b>Antigravity 프롬프트:</b> "notes/ 폴더 메모와 img/ 폴더 사진을 반영해서 index.html을 업데이트해줘. [ ] 플레이스홀더를 모두 실제 내용으로 교체해줘."
+  </div>
+
+  <div class="day open" id="d0">
+    <div class="day-hdr" onclick="tog(this)">
+      Day 1 — 이동 (ICN → LAX)<span class="day-tag tag-ci">이동일</span><span class="arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="evt"><span class="time">[출발시간]</span><span class="dot dot-cy"></span>✈️ 인천 출발 — [항공편]</div>
+      <div class="evt"><span class="time">[도착시간]</span><span class="dot dot-gd"></span>🛬 LAX 도착 — 입국심사 → 짐 수취</div>
+      <div class="evt"><span class="time"></span><span class="dot dot-cy"></span>🚗 호텔 이동 — [교통수단 / 예상 시간]</div>
+      <div class="evt evt-gold"><span class="time"></span><span class="dot dot-gd"></span><b>🏨 호텔 체크인 — [호텔명]</b></div>
+      <div class="evt"><span class="time">저녁</span><span class="dot dot-pk"></span>🍽 시차 적응 · 이른 취침 권장</div>
+      <div class="photo-grid">
+        <div class="photo-ph">📷<br>img/day1/</div>
+        <div class="photo-ph">📷<br>img/day1/</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day" id="d1">
+    <div class="day-hdr" onclick="tog(this)">
+      Day 2 — AWE 첫째날<span class="day-tag tag-ex">전시 오픈</span><span class="arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="evt evt-gold"><span class="time">09:00</span><span class="dot dot-gd"></span><b>⭐ 키노트 세션</b></div>
+      <div class="evt"><span class="time">10:30</span><span class="dot dot-pp"></span>🏛 Expo Hall 오픈 — 부스 투어 시작</div>
+      <div class="evt"><span class="time">12:00</span><span class="dot dot-mt"></span>🍽 점심 — [장소]</div>
+      <div class="evt"><span class="time">오후</span><span class="dot dot-cy"></span>🔍 주요 부스 센싱 (메모 필수)</div>
+      <div class="evt"><span class="time">18:00</span><span class="dot dot-gn"></span>네트워킹 리셉션</div>
+      <div class="evt"><span class="time">TIP</span><span class="dot dot-ac"></span>📝 notes/exhibition.txt에 부스메모 바로 기록</div>
+      <div class="photo-grid">
+        <div class="photo-ph">📷<br>img/day2/키노트</div>
+        <div class="photo-ph">📷<br>img/day2/부스1</div>
+        <div class="photo-ph">📷<br>img/day2/부스2</div>
+        <div class="photo-ph">📷<br>img/day2/부스3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day" id="d2">
+    <div class="day-hdr" onclick="tog(this)">
+      Day 3 — AWE 둘째날<span class="arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="evt evt-gold"><span class="time">09:30</span><span class="dot dot-gd"></span><b>⭐ [주요 세션명]</b></div>
+      <div class="evt"><span class="time">11:00</span><span class="dot dot-pp"></span>🏛 Expo Hall — 미방문 부스 순회</div>
+      <div class="evt"><span class="time">오후</span><span class="dot dot-ac"></span>🤝 [VIP 미팅 기업명] 미팅</div>
+      <div class="evt"><span class="time">15:00</span><span class="dot dot-cy"></span>[세션/워크샵명]</div>
+      <div class="photo-grid">
+        <div class="photo-ph">📷<br>img/day3/세션</div>
+        <div class="photo-ph">📷<br>img/day3/미팅</div>
+        <div class="photo-ph">📷<br>img/day3/부스</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day" id="d3">
+    <div class="day-hdr" onclick="tog(this)">
+      Day 4 — AWE 셋째날 / 귀국 준비<span class="day-tag tag-out">마지막</span><span class="arrow">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="evt"><span class="time">오전</span><span class="dot dot-pp"></span>마지막 부스 순회 · 자료 수집</div>
+      <div class="evt"><span class="time">오후</span><span class="dot dot-cy"></span>🛍 굿즈 / 팸플릿 정리</div>
+      <div class="evt evt-gold"><span class="time">저녁</span><span class="dot dot-gd"></span><b>🏨 체크아웃 → 공항 이동</b></div>
+      <div class="evt"><span class="time">[시간]</span><span class="dot dot-ac"></span>✈️ [항공편] LAX 출발</div>
+      <div class="photo-grid">
+        <div class="photo-ph">📷<br>img/day4/</div>
+        <div class="photo-ph">📷<br>img/day4/</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 1: 전시센싱 ═══════════════════ -->
+<div class="tab" id="t1">
+
+  <!-- 종합요약 -->
+  <div class="card" style="border-left:3px solid var(--pk)">
+    <h3 style="color:var(--pk)">⚠️ AWE 2026 — AR/XR 기술 동향 종합 분석</h3>
+    <p style="font-size:12px;color:var(--mt);margin-bottom:10px">Expo Hall 현장 실사 기반. 분야별 핵심 트렌드 정리</p>
+
+    <div class="cat-title" style="color:var(--rd)">🔴 핵심 경쟁 포인트</div>
+    <div style="font-size:12.5px;line-height:2;color:var(--tx);padding:4px 0 10px">
+      <b>[기업명]</b> — [기술/제품명] · [핵심 스펙]<br>
+      <b>[기업명]</b> — [기술/제품명] · [핵심 스펙]<br>
+      <b>[기업명]</b> — [기술/제품명] · [핵심 스펙]<br>
+      ← <i style="color:var(--mt)">현장에서 채울 것</i>
+    </div>
+
+    <div class="cat-title" style="color:var(--gd)">🟡 주목 기술 트렌드</div>
+    <div style="font-size:12.5px;line-height:2;color:var(--tx);padding:4px 0 10px">
+      [트렌드 1] — [설명]<br>
+      [트렌드 2] — [설명]<br>
+      ← <i style="color:var(--mt)">현장에서 채울 것</i>
+    </div>
+
+    <div style="background:rgba(239,68,68,.1);border:2px solid rgba(239,68,68,.4);border-radius:7px;padding:10px 12px;margin-top:8px;font-size:12px;line-height:1.8;color:var(--tx)">
+      <b style="color:var(--rd)">🚨 총평:</b> [전시 전체를 관통하는 핵심 인사이트 한 줄 — 귀국 후 작성]
+    </div>
+  </div>
+
+  <!-- AR 글래스 / 웨어러블 -->
+  <div class="card sen-card">
+    <h3 style="color:var(--cy)">👓 AR 글래스 / 웨어러블</h3>
+    <p style="font-size:12px;color:var(--mt);margin-bottom:10px">현장에서 센싱한 AR 디스플레이 기술 정리</p>
+
+    <div class="cat-title">📦 AR 글래스 — 폼팩터 / 광학계</div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co">[기업명]</span> [제품명] — [핵심 스펙]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[상세 기술 내용 — 웨이브가이드 방식, FOV, 해상도, 밝기 등]</div>
+        <div class="sen-resp"><b>시사점:</b> [자사 관련 분석 / 경쟁 포지션]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co">[기업명]</span> [제품명] — [핵심 스펙]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[상세 기술 내용]</div>
+        <div class="sen-resp"><b>시사점:</b> [분석]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+
+    <div class="cat-title">🖥 MicroLED / MicroOLED 디스플레이</div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co">[기업명]</span> [제품명] — [해상도 / 밝기 / PPI]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[상세 스펙]</div>
+        <div class="sen-resp"><b>시사점:</b> [분석]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co">[기업명]</span> [제품명] — [스펙]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[상세]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- XR 헤드셋 -->
+  <div class="card sen-card" style="border-left-color:var(--pp)!important">
+    <h3 style="color:var(--pp)">🥽 XR 헤드셋 / MR 플랫폼</h3>
+    <p style="font-size:12px;color:var(--mt);margin-bottom:10px">Mixed Reality / VR / 공간컴퓨팅</p>
+
+    <div class="cat-title" style="color:var(--pp)">🎮 헤드셋 플랫폼 비교</div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co" style="background:rgba(167,139,250,.12);color:var(--pp)">[기업명]</span> [제품명]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[스펙 / 시연 내용 / 소비자 반응]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co" style="background:rgba(167,139,250,.12);color:var(--pp)">[기업명]</span> [제품명]
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[상세]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+
+    <div class="cat-title" style="color:var(--gn)">🤳 고객 반응 관찰</div>
+    <div class="sen-item">
+      <div class="sen-hdr" onclick="togSen(this)">
+        <input type="checkbox" class="sen-chk" onclick="event.stopPropagation()">
+        <span class="sen-co" style="background:rgba(34,197,94,.12);color:var(--gn)">고객반응</span> 관람객/바이어 반응 정리
+        <span class="arrow" style="margin-left:auto">▼</span>
+      </div>
+      <div class="sen-body">
+        <div class="sen-detail">[대기줄 길이, 관람객 인구통계, 관심 포인트, 자주 하는 질문 등]</div>
+        <textarea class="sen-memo" placeholder="현장 메모..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사진 -->
+  <div class="card">
+    <h3>📸 전시장 현장 사진</h3>
+    <div class="photo-grid">
+      <div class="photo-ph">📷<br>부스 전경</div>
+      <div class="photo-ph">📷<br>제품 클로즈업</div>
+      <div class="photo-ph">📷<br>시연 장면</div>
+      <div class="photo-ph">📷<br>고객 반응</div>
+      <div class="photo-ph">📷<br>팸플릿/자료</div>
+      <div class="photo-ph">📷<br>기타</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 2: 주목기업 ═══════════════════ -->
+<div class="tab" id="t2">
+
+  <div class="card" style="border-left:3px solid var(--pp)">
+    <h3 style="color:var(--pp)">🌟 주목기업 / VIP 미팅 — 핵심 요약</h3>
+    <p>이번 출장에서 특별히 주목한 기업 또는 VIP 미팅 내용 정리</p>
+  </div>
+
+  <!-- VIP 기업 1 -->
+  <div class="vip-card">
+    <div class="vip-top">
+      <div class="vip-logo">🏢</div>
+      <div>
+        <div class="vip-name">[기업명 1]</div>
+        <div class="vip-sub">[국가] · [분야] · [미팅 일시]</div>
+      </div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="vip-tag t-pp">[기술 카테고리]</span>
+      <span class="vip-tag t-gd">[시장 포지션]</span>
+    </div>
+    <div class="vip-body">
+      <b>미팅 배경 / 목적:</b><br>
+      [왜 이 기업을 주목했는가 / 무엇을 알고 싶었는가]
+    </div>
+    <div class="vip-divider"></div>
+    <div class="vip-body">
+      <b>주요 시연 · 발표 내용:</b>
+      <ul style="margin-left:16px;margin-top:6px;line-height:2">
+        <li>[핵심 내용 1]</li>
+        <li>[핵심 내용 2]</li>
+        <li>[핵심 내용 3]</li>
+      </ul>
+    </div>
+    <div class="vip-divider"></div>
+    <div class="vip-body">
+      <b>자사와의 연관성 / 시사점:</b><br>
+      [비즈니스 기회, 위협 요인, 파트너십 가능성 등]
+    </div>
+    <div class="vip-divider"></div>
+    <div class="vip-body">
+      <b>후속 조치:</b> [담당자 / 기한]
+    </div>
+    <div class="photo-grid" style="margin-top:12px">
+      <div class="photo-ph">📷<br>미팅 현장</div>
+      <div class="photo-ph">📷<br>시연 제품</div>
+      <div class="photo-ph">📷<br>자료/팸플릿</div>
+    </div>
+  </div>
+
+  <!-- VIP 기업 2 -->
+  <div class="vip-card">
+    <div class="vip-top">
+      <div class="vip-logo">💡</div>
+      <div>
+        <div class="vip-name">[기업명 2]</div>
+        <div class="vip-sub">[국가] · [분야] · [미팅 일시]</div>
+      </div>
+    </div>
+    <div style="margin-bottom:10px">
+      <span class="vip-tag t-cy">[기술 카테고리]</span>
+      <span class="vip-tag t-gn">[시장 포지션]</span>
+    </div>
+    <div class="vip-body">
+      <b>주요 발표 내용:</b>
+      <ul style="margin-left:16px;margin-top:6px;line-height:2">
+        <li>[핵심 내용 1]</li>
+        <li>[핵심 내용 2]</li>
+      </ul>
+    </div>
+    <div class="vip-divider"></div>
+    <div class="vip-body">
+      <b>시사점:</b> [분석]
+    </div>
+    <div class="photo-grid" style="margin-top:12px">
+      <div class="photo-ph">📷<br>img/day2/</div>
+      <div class="photo-ph">📷<br>img/day3/</div>
+    </div>
+  </div>
+
+  <!-- VIP 기업 3 -->
+  <div class="vip-card">
+    <div class="vip-top">
+      <div class="vip-logo">🤝</div>
+      <div>
+        <div class="vip-name">[기업명 3]</div>
+        <div class="vip-sub">[국가] · [분야]</div>
+      </div>
+    </div>
+    <div class="vip-body">
+      <b>주요 내용:</b>
+      <ul style="margin-left:16px;margin-top:6px;line-height:2">
+        <li>[핵심 내용 1]</li>
+        <li>[핵심 내용 2]</li>
+      </ul>
+    </div>
+    <div class="vip-divider"></div>
+    <div class="vip-body">
+      <b>후속 조치:</b> [담당자 / 기한]
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 3: 최종소감 ═══════════════════ -->
+<div class="tab" id="t3">
+
+  <div class="essay-block">
+    <div class="essay-title">🔑 핵심 인사이트</div>
+    <div class="essay-body">
+      [이번 AWE 출장에서 얻은 가장 중요한 인사이트를 기술. AR/XR 산업의 방향성, 경쟁 구도의 변화,
+      기술 성숙도 평가 등 현장에서 직접 느낀 것을 솔직하게 서술.]<br><br>
+      <b>[핵심 포인트 1]</b> — [설명]<br>
+      <b>[핵심 포인트 2]</b> — [설명]<br>
+      <b>[핵심 포인트 3]</b> — [설명]
+    </div>
+  </div>
+
+  <div class="essay-block gn">
+    <div class="essay-title">✅ 기회 요인</div>
+    <div class="essay-body">
+      [이번 전시를 통해 발견한 비즈니스 기회, 파트너십 가능성, 기술 도입 포인트.]<br><br>
+      • [기회 1]<br>
+      • [기회 2]<br>
+      • [기회 3]
+    </div>
+  </div>
+
+  <div class="essay-block pk">
+    <div class="essay-title">⚠️ 위협 / 주의 요인</div>
+    <div class="essay-body">
+      [경쟁사 동향, 시장 위험 요소, 우리가 놓치고 있는 부분 등 솔직하게 서술.]<br><br>
+      • [위협 1]<br>
+      • [위협 2]<br>
+      • [위협 3]
+    </div>
+  </div>
+
+  <div class="essay-block gd">
+    <div class="essay-title">💭 현장 에세이</div>
+    <div class="essay-body">
+      [자유 형식. 현장에서 느낀 분위기, 인상 깊었던 장면, 대화 에피소드,
+      기술 트렌드에 대한 개인적 생각 등을 편하게 서술. 사진 포함 가능.]<br><br>
+      [작성자: _________]
+    </div>
+    <div class="photo-grid" style="margin-top:12px">
+      <div class="photo-ph">📷<br>인상적인 장면</div>
+      <div class="photo-ph">📷<br>에세이 관련 사진</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📋 후속 액션 아이템</h3>
+    <div style="padding-top:4px">
+      <div class="action-row">
+        <div class="action-num action-pend">1</div>
+        <div>[액션 아이템 1] — 담당: [이름] · 기한: [날짜]</div>
+      </div>
+      <div class="action-row">
+        <div class="action-num action-pend">2</div>
+        <div>[액션 아이템 2] — 담당: [이름] · 기한: [날짜]</div>
+      </div>
+      <div class="action-row">
+        <div class="action-num action-pend">3</div>
+        <div>[액션 아이템 3] — 담당: [이름] · 기한: [날짜]</div>
+      </div>
+      <div class="action-row">
+        <div class="action-num action-pend">4</div>
+        <div>[액션 아이템 4] — 담당: [이름] · 기한: [날짜]</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Image modal -->
+<div id="modal" onclick="closeModal()">
+  <div class="modal-close">✕</div>
+  <img id="modal-img" src="" alt="">
+</div>
+
+<script>
+  function openTab(i, btn) {
+    document.querySelectorAll('.tab').forEach((t,j) => t.classList.toggle('active', i===j));
+    document.querySelectorAll('nav button').forEach((b,j) => b.classList.toggle('active', i===j));
+  }
+  function tog(hdr) { hdr.parentElement.classList.toggle('open'); }
+  function togSen(hdr) { hdr.parentElement.classList.toggle('open'); }
+  function toggleTheme() {
+    const body = document.body;
+    const isDark = !body.dataset.theme || body.dataset.theme === '';
+    body.dataset.theme = isDark ? 'light' : '';
+    document.querySelector('.theme-btn').textContent = isDark ? '🌙 Dark' : '☀️ Light';
+  }
+  document.querySelectorAll('.photo-grid img').forEach(img => {
+    img.addEventListener('click', e => {
+      e.stopPropagation();
+      document.getElementById('modal-img').src = img.src;
+      document.getElementById('modal').classList.add('open');
+    });
+  });
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+  // Open first day by default
+  document.querySelector('.day')?.classList.add('open');
+</script>
+
+</body>
+</html>
