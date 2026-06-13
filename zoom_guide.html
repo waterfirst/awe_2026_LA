@@ -438,31 +438,48 @@ git push origin main</div>
   <div class="step-num">05</div>
   <div class="step-title">🤖 <span>Antigravity</span>로 보고서 생성</div>
   <div class="step-body">
-    자료가 모이면 Antigravity에서 index.html을 완성합니다.
+    antigravity.google → 폴더 업로드 → 프롬프트 전송 → index.html 다운로드
   </div>
-  <div class="tip-box">
-    <div class="tip-label">사용 방법</div>
-    1. antigravity.google 접속<br>
-    2. 폴더(awe_2026_LA/) 전체 드래그&드롭 업로드<br>
-    3. 아래 프롬프트 복붙 → 전송<br>
-    4. 생성된 index.html 다운로드
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+    <div class="tip-box">
+      <div class="tip-label">프롬프트 A — 기본</div>
+      <span style="font-size:0.78rem;color:var(--mt)">사진을 img/ 폴더로 따로 관리</span><br><br>
+      <code style="font-size:0.75rem;color:var(--cy)">
+        notes/ 메모와 img/ 사진으로<br>
+        index.html 출장보고서 완성해줘.<br>
+        규칙:<br>
+        1. 탭 구성 유지<br>
+        2. [ ] 플레이스홀더 교체<br>
+        3. 사진 날짜별 배치<br>
+        4. 단일 HTML 출력<br>
+        5. 다크 테마·탭 구조 유지
+      </code>
+    </div>
+    <div class="tip-box" style="background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.3)">
+      <div class="tip-label" style="color:var(--gn)">프롬프트 B — 사진 내장형 ⭐</div>
+      <span style="font-size:0.78rem;color:var(--mt)">사진을 HTML 안에 통째로 내장<br>파일 1개로 완성!</span><br><br>
+      <code style="font-size:0.75rem;color:var(--cy)">
+        notes/ 메모와 img/ 사진으로<br>
+        index.html 출장보고서 완성해줘.<br>
+        규칙:<br>
+        1~5. (위와 동일)<br>
+        <b style="color:var(--gn)">+ 6. 모든 사진을 Base64로<br>
+        HTML 안에 직접 내장<br>
+        (img/ 폴더 참조 없이<br>
+        파일 하나로 동작)</b>
+      </code>
+    </div>
   </div>
-  <div class="code-block"><span class="comment">-- 아래를 복붙하세요 --</span>
 
-notes/ 폴더 메모와 img/ 폴더 사진을 바탕으로
-index.html 출장보고서를 완성해줘.
-
-규칙:
-1. 탭 구성 유지 (일정/전시센싱/주목기업/최종소감)
-2. <span class="str">[ ]</span> 플레이스홀더를 실제 내용으로 교체
-3. img/ 사진을 날짜별로 해당 섹션에 배치
-4. exhibition.txt 내용을 전시센싱 탭에 반영
-5. meetings.txt 내용을 주목기업 탭에 반영
-6. 단일 HTML 파일로 출력
-7. 다크 테마와 탭 구조 유지</div>
+  <div class="warn-box" style="margin-top:10px">
+    <div class="warn-label">⭐ B 추천 이유</div>
+    index.html <b>파일 하나만</b> GitHub에 올리면 끝! 사진 폴더 따로 업로드 불필요<br>
+    <span style="font-size:0.78rem;color:var(--mt)">⚠️ 사진 많으면 파일 커짐 (10장 기준 약 5~15MB)</span>
+  </div>
 </div>
 
-<!-- ═════════════ SLIDE 9: STEP 6 — GitHub Pages ═════════════ -->
+<!-- ═════════════ SLIDE 9: STEP 6 — 배포 방법 3가지 개요 ═════════════ -->
 <div class="slide">
   <div class="progress-row">
     <div class="progress-step done"></div><div class="progress-step done"></div>
@@ -471,77 +488,135 @@ index.html 출장보고서를 완성해줘.
   </div>
   <div style="height:24px"></div>
   <div class="step-num">06</div>
-  <div class="step-title">🚀 <span>GitHub Pages</span> 배포</div>
-  <div class="step-body">
-    생성된 index.html을 GitHub에 올리면 URL이 생깁니다.
+  <div class="step-title">🚀 <span>배포 방법</span> — 3가지 중 선택</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px">
+    <div class="step-card" style="border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.05)">
+      <div class="num" style="color:var(--gn)">🥇</div>
+      <div class="name">Antigravity<br>Publish 버튼</div>
+      <div class="desc">클릭 한 번<br>Git·GitHub 불필요</div>
+      <div class="time-badge">30초</div>
+    </div>
+    <div class="step-card" style="border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.05)">
+      <div class="num" style="color:var(--ac)">🥈</div>
+      <div class="name">GitHub<br>웹 업로드</div>
+      <div class="desc">브라우저만 사용<br>Git 불필요</div>
+      <div class="time-badge">5분</div>
+    </div>
+    <div class="step-card" style="border-color:rgba(168,139,250,0.4);background:rgba(168,139,250,0.05)">
+      <div class="num" style="color:var(--pp)">🥉</div>
+      <div class="name">git push<br>(개발자)</div>
+      <div class="desc">Git 설치 필요<br>터미널 사용</div>
+      <div class="time-badge">1분</div>
+    </div>
   </div>
-  <div class="tip-box">
-    <div class="tip-label">업로드 방법</div>
-    1. github.com/[내계정]/awe_2026_LA 접속<br>
-    2. <b>Add file → Upload files</b><br>
-    3. Antigravity에서 받은 <b>index.html</b> 드래그<br>
-    4. <b>Commit changes</b> 클릭
+
+  <div class="tip-box" style="margin-top:14px;font-size:0.82rem">
+    <div class="tip-label">한눈에 비교</div>
+    <b style="color:var(--gn)">🥇 antigravity.google 도메인</b> — 가장 간단, 지금 당장 공유 가능<br>
+    <b style="color:var(--ac)">🥈 [내계정].github.io 도메인</b> — 브라우저만 있으면 OK<br>
+    <b style="color:var(--pp)">🥉 [내계정].github.io 도메인</b> — Git 설치 필요, 개발자 전용<br><br>
+    <span style="color:var(--mt)">다음 슬라이드에서 각 방법 상세 설명 →</span>
   </div>
-  <div class="tip-box" style="margin-top:10px">
-    <div class="tip-label">Pages 활성화 (최초 1회)</div>
-    1. 레포 → <b>Settings</b> 탭<br>
-    2. 왼쪽 메뉴 → <b>Pages</b><br>
-    3. Source: <b>main</b> branch → <b>/ (root)</b> → <b>Save</b><br>
-    4. 1~2분 후 URL 생성 ✅
+</div>
+
+<!-- ═════════════ SLIDE 10: 방법 1 — Antigravity Publish ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2.8rem;color:var(--gn)">🥇</div>
+  <div class="step-title" style="color:var(--gn)">방법 1 — <span style="color:var(--tx)">Antigravity Publish</span></div>
+  <div class="step-body" style="color:var(--gd)">
+    가장 쉬운 방법 · Git·GitHub 계정 없어도 됨 · 클릭 한 번
   </div>
-  <div class="url-box" style="margin-top:14px">
+
+  <div class="tip-box" style="background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.3);margin-top:14px">
+    <div class="tip-label" style="color:var(--gn)">상세 절차</div>
+    <b>① Antigravity에서 보고서 생성 완료 후</b><br><br>
+    <b>② 화면 우측 상단(또는 하단) 버튼 클릭:</b><br>
+    <div class="code-block" style="margin-top:8px;font-size:0.82rem">
+"Publish" 또는 "Share" 또는 "Deploy" 버튼
+  → 클릭 → 잠시 대기 (10~30초)
+  → URL 자동 생성!</div>
+    <br>
+    <b>③ 생성된 URL 복사 후 공유:</b><br>
+    <div class="url-box" style="margin-top:8px">
+      <div class="url-label">예시 URL</div>
+      <div class="url-text">https://[프로젝트].antigravity.google</div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.25)">
+    <div class="warn-label">📌 참고</div>
+    URL이 github.io가 아닌 antigravity.google 도메인입니다.<br>
+    URL 수정·삭제는 Antigravity 대시보드에서 가능합니다.<br>
+    <span style="color:var(--mt);font-size:0.78rem">github.io URL이 필요하면 방법 2 또는 3을 사용하세요.</span>
+  </div>
+</div>
+
+<!-- ═════════════ SLIDE 11: 방법 2 — GitHub 웹 업로드 ═════════════ -->
+<div class="slide">
+  <div class="step-num" style="font-size:2.8rem;color:var(--ac)">🥈</div>
+  <div class="step-title" style="color:var(--ac)">방법 2 — <span style="color:var(--tx)">GitHub 웹 업로드</span></div>
+  <div class="step-body" style="color:var(--mt)">
+    브라우저만 있으면 OK · Git 설치 불필요 · github.io URL 생성
+  </div>
+
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">① index.html 업로드</div>
+    1. <span style="color:var(--ac)">github.com/[내계정]/awe_2026_LA</span> 접속<br>
+    2. <b>Add file ▼ → Upload files</b> 클릭<br>
+    3. Antigravity에서 받은 <b>index.html</b> 드래그 앤 드롭<br>
+    4. 하단 <b>Commit changes</b> 클릭<br><br>
+    <span style="color:var(--gn)">⭐ 프롬프트 B(Base64 내장형)로 만든 경우 여기서 끝!</span>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(6,182,212,0.06);border-color:rgba(6,182,212,0.25)">
+    <div class="tip-label" style="color:var(--cy)">② GitHub Pages 활성화 (최초 1회)</div>
+    1. 레포 상단 <b>⚙️ Settings</b> 탭<br>
+    2. 왼쪽 메뉴 스크롤 → <b>Pages</b> 클릭<br>
+    3. Source: <b>Deploy from a branch</b><br>
+    4. Branch: <b>main</b> / Folder: <b>/ (root)</b> → <b>Save</b><br>
+    5. 1~3분 대기 후 URL 생성 ✅
+  </div>
+
+  <div class="url-box" style="margin-top:12px">
     <div class="url-label">내 보고서 URL</div>
     <div class="url-text">https://[내계정].github.io/awe_2026_LA</div>
   </div>
 </div>
 
-<!-- ═════════════ SLIDE 10: 사진 업로드 (선택) ═════════════ -->
+<!-- ═════════════ SLIDE 12: 방법 3 + 완료 ═════════════ -->
 <div class="slide">
-  <div class="step-num" style="font-size:3rem">BONUS</div>
-  <div class="step-title">📷 <span>사진 업로드</span> (선택)</div>
-  <div class="step-body">
-    사진을 보고서에 실제로 표시하려면 img/ 폴더에도 올려야 합니다.
-  </div>
-  <div class="tip-box">
-    <div class="tip-label">사진 업로드 방법</div>
-    1. github.com/[내계정]/awe_2026_LA<br>
-    2. <b>img/day2/</b> 폴더 클릭<br>
-    3. <b>Add file → Upload files</b><br>
-    4. 사진 여러 장 선택 → Commit<br>
-    5. Antigravity에 다시 업로드 → 보고서 재생성
-  </div>
-  <div class="tip-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25)">
-    <div class="tip-label" style="color:var(--gn)">💡 팁: GitHub에서 직접 편집도 가능</div>
-    index.html → 연필(✏️) 아이콘 클릭 → 내용 수정 → Commit<br>
-    간단한 텍스트 수정은 Antigravity 없이도 가능합니다
-  </div>
-</div>
+  <div class="step-num" style="font-size:2.8rem;color:var(--pp)">🥉</div>
+  <div class="step-title" style="color:var(--pp)">방법 3 — <span style="color:var(--tx)">git push (개발자)</span></div>
+  <div class="step-body" style="color:var(--mt)">Git 설치 필요 · 터미널 사용</div>
 
-<!-- ═════════════ SLIDE 11: 완료 ═════════════ -->
-<div class="slide s-title">
-  <div class="big-check">
-    <div class="icon">🎉</div>
-    <div class="msg">완성!</div>
-    <div class="sub">URL 하나로 팀 전체가 출장 보고서를 볼 수 있습니다</div>
+  <div class="tip-box" style="margin-top:12px;background:rgba(168,139,250,0.06);border-color:rgba(168,139,250,0.25)">
+    <div class="tip-label" style="color:var(--pp)">파일 수정 후 레포 폴더에서 실행</div>
+    <div class="code-block" style="margin-top:8px">git add .
+git commit -m "보고서 완성"
+git push origin main
+<span class="comment"># → GitHub Pages 자동 업데이트</span></div>
   </div>
-  <div class="tip-box" style="text-align:left">
-    <div class="tip-label">템플릿 주소 (Fork 또는 Clone)</div>
-    <span style="color:var(--ac);font-weight:600">github.com/waterfirst/awe_2026_LA</span><br>
-    <span style="font-size:0.78rem;color:var(--mt)">Fork: GitHub에서 클릭만 · Clone: git clone [URL]</span>
-  </div>
-  <div class="tip-box" style="text-align:left;margin-top:10px">
-    <div class="tip-label">Antigravity</div>
-    <span style="color:var(--ac);font-weight:600">antigravity.google</span>
-  </div>
-  <div style="text-align:center;margin-top:28px;font-size:0.85rem;color:var(--mt)">
-    질문이 있으시면 편하게 연락주세요 👋
+
+  <div style="margin-top:28px;border-top:1px solid var(--bd);padding-top:24px">
+    <div class="big-check" style="padding:16px 0">
+      <div class="icon">🎉</div>
+      <div class="msg">완성! URL 하나로 팀 전체 공유</div>
+      <div class="sub" style="margin-top:8px;line-height:1.8">
+        템플릿: <span style="color:var(--ac)">github.com/waterfirst/awe_2026_LA</span><br>
+        AI 도구: <span style="color:var(--ac)">antigravity.google</span>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:0.85rem;color:var(--mt)">
+      질문이 있으시면 편하게 연락주세요 👋
+    </div>
   </div>
 </div>
 
 <!-- ── Slide nav ── -->
 <div class="slide-nav">
   <button onclick="prevSlide()">◀</button>
-  <div class="slide-counter" id="counter">1 / 12</div>
+  <div class="slide-counter" id="counter">1 / 13</div>
   <button onclick="nextSlide()">▶</button>
 </div>
 
