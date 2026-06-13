@@ -216,9 +216,9 @@
     </div>
     <div class="step-card">
       <div class="num">03</div>
-      <div class="name">🍴 템플릿 Fork</div>
-      <div class="desc">awe_2026_LA 레포 Fork<br>내 계정으로 복사</div>
-      <div class="time-badge">2분</div>
+      <div class="name">🍴 템플릿 가져오기</div>
+      <div class="desc">Fork (클릭만) 또는<br>Clone (Git 명령어)</div>
+      <div class="time-badge">2~10분</div>
     </div>
     <div class="step-card">
       <div class="num">04</div>
@@ -306,7 +306,7 @@
   </div>
 </div>
 
-<!-- ═════════════ SLIDE 6: STEP 3 — Fork ═════════════ -->
+<!-- ═════════════ SLIDE 6: STEP 3 — Fork vs Clone ═════════════ -->
 <div class="slide">
   <div class="progress-row">
     <div class="progress-step done"></div><div class="progress-step done"></div>
@@ -315,27 +315,75 @@
   </div>
   <div style="height:24px"></div>
   <div class="step-num">03</div>
-  <div class="step-title">🍴 템플릿 <span>Fork</span></div>
-  <div class="step-body">
-    제가 만들어둔 AWE 보고서 템플릿을 여러분 계정으로 복사합니다.
+  <div class="step-title">🍴 템플릿 <span>가져오기</span></div>
+  <div class="step-body">두 가지 방법 중 하나를 선택하세요.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+    <div class="tip-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.3)">
+      <div class="tip-label" style="color:var(--gn)">방법 A — Fork ⭐추천</div>
+      Git 설치 불필요<br>
+      GitHub에서 클릭만으로 복사<br><br>
+      <b style="color:var(--gn)">비개발자 추천</b><br>
+      소요 시간: <b>2분</b>
+    </div>
+    <div class="tip-box" style="background:rgba(99,102,241,0.06);border-color:rgba(99,102,241,0.3)">
+      <div class="tip-label" style="color:var(--ac)">방법 B — Clone</div>
+      Git 설치 필요<br>
+      PC에 직접 다운로드<br><br>
+      <b style="color:var(--ac)">Git 사용자 추천</b><br>
+      소요 시간: <b>5~10분</b>
+    </div>
   </div>
-  <div class="url-box">
-    <div class="url-label">템플릿 레포</div>
-    <div class="url-text">github.com/waterfirst/awe_2026_LA</div>
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">방법 A — Fork 진행 방법</div>
+    1. <span style="color:var(--ac)">github.com/waterfirst/awe_2026_LA</span> 접속<br>
+    2. 우측 상단 <b style="color:var(--gd)">Fork ▼</b> 버튼 클릭<br>
+    3. Owner: 내 계정 선택 → <b>Create fork</b><br>
+    4. 완료 → <span style="color:var(--ac)">github.com/[내계정]/awe_2026_LA</span> 생성 ✅
   </div>
-  <div class="tip-box">
-    <div class="tip-label">Fork 방법</div>
-    1. 위 URL 접속<br>
-    2. 우측 상단 <b style="color:var(--gd)">Fork</b> 버튼 클릭<br>
-    3. <b>Create fork</b> 클릭<br>
-    4. 내 계정에 복사 완료 ✅<br><br>
-    → 내 계정: <span style="color:var(--ac)">github.com/[내계정]/awe_2026_LA</span>
+  <div style="text-align:center;margin-top:10px;font-size:0.8rem;color:var(--mt)">
+    방법 B(Clone) 상세 절차는 다음 슬라이드 →
   </div>
-  <div class="tip-box" style="background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.25)">
-    <div class="tip-label" style="color:var(--pp)">📋 포함 내용</div>
-    • <b>index.html</b> — 4탭 보고서 템플릿 (일정/전시센싱/주목기업/최종소감)<br>
-    • <b>notes/</b> — 현장 메모 양식 파일<br>
-    • <b>img/</b> — 날짜별 사진 폴더
+</div>
+
+<!-- ═════════════ SLIDE 7: STEP 3B — Clone ═════════════ -->
+<div class="slide">
+  <div class="progress-row">
+    <div class="progress-step done"></div><div class="progress-step done"></div>
+    <div class="progress-step current"></div>
+    <div class="progress-step"></div><div class="progress-step"></div><div class="progress-step"></div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="step-num" style="font-size:2.5rem">03-B</div>
+  <div class="step-title">💻 <span>Clone</span> 상세 방법</div>
+
+  <div class="tip-box" style="margin-top:12px">
+    <div class="tip-label">① Git 설치 (처음 한 번만)</div>
+    <b>Windows:</b> <span style="color:var(--ac)">git-scm.com/download/win</span> 접속 → 다운로드 → 설치<br>
+    <b>Mac:</b> 터미널 열고 아래 입력 후 설치 팝업에서 "설치" 클릭:
+    <div class="code-block" style="margin-top:8px">git --version</div>
+    설치 확인: 터미널에 <b style="color:var(--gn)">git version 2.x.x</b> 가 나오면 완료 ✅
+  </div>
+
+  <div class="tip-box" style="margin-top:10px">
+    <div class="tip-label">② 클론 + 내 GitHub 레포로 연결</div>
+    <div class="code-block"><span class="comment"># 1. 템플릿 다운로드</span>
+git clone https://github.com/waterfirst/awe_2026_LA.git
+cd awe_2026_LA
+
+<span class="comment"># 2. github.com/new 에서 새 레포 만든 후:</span>
+git remote remove origin
+git remote add origin https://github.com/<span class="str">[내계정]</span>/awe_2026_LA.git
+
+<span class="comment"># 3. 내 레포에 업로드</span>
+git push -u origin main</div>
+  </div>
+
+  <div class="tip-box" style="margin-top:10px;background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25)">
+    <div class="tip-label" style="color:var(--gn)">③ 이후 파일 추가할 때마다</div>
+    <div class="code-block">git add .
+git commit -m "사진 및 메모 추가"
+git push origin main</div>
+    Push 할 때마다 GitHub Pages가 <b style="color:var(--gn)">자동으로 업데이트</b>됩니다 ✅
   </div>
 </div>
 
@@ -477,8 +525,9 @@ index.html 출장보고서를 완성해줘.
     <div class="sub">URL 하나로 팀 전체가 출장 보고서를 볼 수 있습니다</div>
   </div>
   <div class="tip-box" style="text-align:left">
-    <div class="tip-label">템플릿 주소 (Fork 해서 시작)</div>
-    <span style="color:var(--ac);font-weight:600">github.com/waterfirst/awe_2026_LA</span>
+    <div class="tip-label">템플릿 주소 (Fork 또는 Clone)</div>
+    <span style="color:var(--ac);font-weight:600">github.com/waterfirst/awe_2026_LA</span><br>
+    <span style="font-size:0.78rem;color:var(--mt)">Fork: GitHub에서 클릭만 · Clone: git clone [URL]</span>
   </div>
   <div class="tip-box" style="text-align:left;margin-top:10px">
     <div class="tip-label">Antigravity</div>
@@ -492,7 +541,7 @@ index.html 출장보고서를 완성해줘.
 <!-- ── Slide nav ── -->
 <div class="slide-nav">
   <button onclick="prevSlide()">◀</button>
-  <div class="slide-counter" id="counter">1 / 11</div>
+  <div class="slide-counter" id="counter">1 / 12</div>
   <button onclick="nextSlide()">▶</button>
 </div>
 
