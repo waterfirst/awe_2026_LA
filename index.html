@@ -150,6 +150,19 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 .pill-gn { background: rgba(34,197,94,0.12); color: var(--gn); }
 .pill-cy { background: rgba(6,182,212,0.12); color: var(--cy); }
 
+/* RESOURCE BAR */
+.resource-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.resource-chip { display: flex; align-items: flex-start; gap: 14px; background: var(--sf); border: 1px solid var(--bd); border-radius: 14px; padding: 16px 20px; text-decoration: none; color: var(--tx); transition: border-color 0.2s, transform 0.2s; flex: 1; min-width: 220px; }
+.resource-chip:hover { border-color: var(--ac); transform: translateY(-2px); }
+.resource-chip .rc-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+.resource-chip .rc-label { font-size: 0.65rem; font-weight: 700; color: var(--mt); display: block; margin-bottom: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
+.resource-chip .rc-title { font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 3px; }
+.resource-chip .rc-sub { font-size: 0.75rem; color: var(--mt); line-height: 1.5; }
+.resource-chip.chip-prev { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.05); }
+.resource-chip.chip-case { border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.04); }
+.chip-prev .rc-label { color: var(--ac); }
+.chip-case .rc-label { color: var(--cy); }
+
 /* FOOTER */
 .footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--bd); color: var(--mt); font-size: 0.82rem; }
 
@@ -205,6 +218,33 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
   </div>
   <div class="section-img" style="max-height:480px">
     <img src="img/hero.png" alt="AI 세미나 연구소 회의실" loading="eager">
+  </div>
+
+  <div class="resource-bar">
+    <a class="resource-chip chip-prev" href="https://waterfirst.github.io/ai-seminar-2026/" target="_blank">
+      <span class="rc-icon">📚</span>
+      <div>
+        <span class="rc-label">1차 세미나 · 2026.05 자료</span>
+        <span class="rc-title">AI가 바꾸는 연구개발</span>
+        <span class="rc-sub">SDC 연구소 재료연구팀 세미나 전체 슬라이드 및 실습 자료</span>
+      </div>
+    </a>
+    <a class="resource-chip chip-case" href="https://waterfirst.github.io/ai-seminar-2026/ml-with-prompts.html" target="_blank">
+      <span class="rc-icon">🤖</span>
+      <div>
+        <span class="rc-label">사례 연구 · ML + 프롬프트</span>
+        <span class="rc-title">프롬프트로 머신러닝하기</span>
+        <span class="rc-sub">AI 실전 워크숍 — 코딩 없이 Claude로 ML 구현한 사례 연구</span>
+      </div>
+    </a>
+    <a class="resource-chip" href="index2.html">
+      <span class="rc-icon">✈️</span>
+      <div>
+        <span class="rc-label">AWE 2026 · 전시 출장 보고서</span>
+        <span class="rc-title">AWE USA 2026 전시 센싱</span>
+        <span class="rc-sub">Long Beach 전시회 AR·XR 기술 트렌드 현장 정리</span>
+      </div>
+    </a>
   </div>
 </section>
 
