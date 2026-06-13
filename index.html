@@ -168,6 +168,21 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 .chip-prev .rc-label { color: var(--ac); }
 .chip-case .rc-label { color: var(--cy); }
 
+/* PASSWORD GATE */
+#pw-gate { position: fixed; inset: 0; z-index: 10000; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; transition: opacity 0.4s; }
+#pw-gate.hidden { display: none; }
+.pw-title { font-size: 1.5rem; font-weight: 800; color: var(--tx); letter-spacing: -0.5px; }
+.pw-sub { color: var(--mt); font-size: 0.85rem; margin-top: -12px; }
+.pw-box { display: flex; flex-direction: column; align-items: center; gap: 14px; background: var(--sf); border: 1px solid var(--bd); border-radius: 18px; padding: 36px 44px; min-width: 280px; }
+.pw-label { font-size: 0.72rem; font-weight: 700; color: var(--mt); letter-spacing: 1.5px; text-transform: uppercase; }
+.pw-input { background: var(--bg); border: 1.5px solid var(--bd); color: var(--tx); border-radius: 10px; padding: 14px 16px; font-size: 2rem; text-align: center; letter-spacing: 12px; width: 180px; outline: none; transition: border-color 0.2s; -webkit-text-security: disc; }
+.pw-input:focus { border-color: var(--ac); }
+.pw-btn { background: var(--ac); color: #fff; border: none; border-radius: 10px; padding: 13px 0; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; transition: opacity 0.2s; margin-top: 4px; }
+.pw-btn:hover { opacity: 0.82; }
+.pw-err { color: var(--rd); font-size: 0.8rem; min-height: 18px; text-align: center; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 60%{transform:translateX(10px)} }
+.pw-shake { animation: shake 0.35s ease; }
+
 /* FOOTER */
 .footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--bd); color: var(--mt); font-size: 0.82rem; }
 
@@ -181,6 +196,18 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="pw-title">🔐 AI 세미나 2차</div>
+  <p class="pw-sub">연구소 임원 AI 2차 세미나 · 2026년 6월</p>
+  <div class="pw-box">
+    <div class="pw-label">비밀번호 입력</div>
+    <input id="pw-input" class="pw-input" type="tel" maxlength="4" inputmode="numeric" placeholder="0000" autocomplete="off">
+    <div id="pw-err" class="pw-err"></div>
+    <button class="pw-btn" onclick="checkPw()">입장하기 →</button>
+  </div>
+</div>
 
 <!-- SPLASH -->
 <div id="splash">
@@ -811,6 +838,35 @@ hr.div { border: none; border-top: 1px solid var(--bd); margin: 0; }
 </footer>
 
 <script>
+// Password gate
+(function() {
+  if (sessionStorage.getItem('pw_ok') === '1') {
+    document.getElementById('pw-gate').classList.add('hidden');
+    return;
+  }
+  var inp = document.getElementById('pw-input');
+  inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPw(); });
+  inp.focus();
+})();
+
+function checkPw() {
+  var val = document.getElementById('pw-input').value;
+  var err = document.getElementById('pw-err');
+  var gate = document.getElementById('pw-gate');
+  if (val === '0000') {
+    sessionStorage.setItem('pw_ok', '1');
+    gate.style.opacity = '0';
+    setTimeout(function() { gate.classList.add('hidden'); }, 400);
+  } else {
+    err.textContent = '비밀번호가 틀렸습니다.';
+    var inp = document.getElementById('pw-input');
+    inp.classList.add('pw-shake');
+    inp.value = '';
+    setTimeout(function() { inp.classList.remove('pw-shake'); err.textContent = ''; inp.focus(); }, 700);
+  }
+}
+
+// Nav scroll active
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav a');
 window.addEventListener('scroll', () => {
