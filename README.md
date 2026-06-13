@@ -48,19 +48,22 @@
 
 두 가지 방법 중 하나를 선택합니다.
 
-| | 방법 A — Fork | 방법 B — Clone |
+| | 방법 A — Fork + ZIP | 방법 B — Clone |
 |---|---|---|
 | 난이도 | 쉬움 (클릭만) | 보통 (Git 명령어) |
 | GitHub 계정 필요 | 필요 | 필요 |
-| Git 설치 필요 | 불필요 | **필요** |
-| 원본 업데이트 반영 | 가능 | 수동 |
-| 추천 대상 | 비개발자 | Git 익숙한 분 |
+| Git 설치 필요 | **불필요** | 필요 |
+| 로컬 작업 방법 | ZIP 압축 해제 후 폴더 편집 | git clone |
+| GitHub 업로드 방법 | 웹에서 드래그 앤 드롭 | git push |
+| 추천 대상 | **비개발자 (대부분)** | Git 익숙한 분 |
 
 ---
 
-### 방법 A — Fork (추천, 클릭만)
+### 방법 A — Fork + ZIP 다운로드 (비개발자 추천)
 
-**Fork = GitHub에서 바로 내 계정으로 복사**
+**전체 흐름: Fork(GitHub 복사) → ZIP 다운로드 → 로컬 폴더 작업 → 웹 업로드**
+
+#### A-1. Fork — GitHub에서 내 계정으로 복사
 
 1. 이 페이지 상단 우측 **Fork** 버튼 클릭
 
@@ -72,7 +75,63 @@
 
 3. 잠시 후 `https://github.com/[내 아이디]/awe_2026_LA` 로 이동됨
 
-> ✅ 이제 이 레포는 **내 소유**입니다. 자유롭게 수정·배포 가능.
+> ✅ GitHub에 내 소유 복사본이 생겼습니다. Git 없이도 이용 가능합니다.
+
+#### A-2. ZIP 다운로드 — 로컬 PC로 가져오기
+
+1. 내 Fork 레포(`github.com/[내 아이디]/awe_2026_LA`) 접속
+2. 초록색 **Code ▼** 버튼 클릭
+3. **Download ZIP** 클릭
+
+   ```
+   Code ▼
+   ├── Open with GitHub Desktop
+   ├── Open with Codespace
+   └── ⬇ Download ZIP   ← 이것 클릭
+   ```
+
+4. 다운로드된 `awe_2026_LA-main.zip` 압축 해제
+5. 폴더 이름 `awe_2026_LA-main` → `awe_2026_LA` 로 변경 (선택)
+
+> ✅ 이제 내 PC에 `awe_2026_LA/` 폴더가 생겼습니다.
+
+#### A-3. 로컬 폴더에 사진·메모 넣기
+
+압축 해제한 폴더에 파일을 직접 넣습니다:
+
+```
+awe_2026_LA/
+├── img/
+│   ├── day1/   ← 이동일 사진 여기에 복붙
+│   ├── day2/   ← 전시 첫날 사진
+│   └── ...
+└── notes/
+    ├── exhibition.txt   ← 메모장으로 열어서 내용 채우기
+    └── vip_meeting.txt
+```
+
+#### A-4. Antigravity로 보고서 생성
+
+`awe_2026_LA/` 폴더 전체를 Antigravity에 업로드 → 프롬프트 입력 → `index.html` 다운로드  
+(자세한 방법은 5단계 참조)
+
+#### A-5. GitHub에 파일 올리기 (Git 불필요)
+
+**방법 ①: index.html만 교체 (가장 빠름)**
+
+1. 내 Fork 레포 접속 → `index.html` 파일 이름 클릭
+2. 우측 ✏️ 연필 아이콘 클릭
+3. 전체 선택(Ctrl+A) → Antigravity에서 받은 내용 붙여넣기
+4. **Commit changes** 클릭 → 완료 ✅
+
+**방법 ②: 파일 여러 개 한 번에 올리기**
+
+1. 내 Fork 레포 접속
+2. **Add file ▼ → Upload files** 클릭
+3. `index.html` + 사진 파일들 드래그 앤 드롭
+4. **Commit changes** 클릭 → 완료 ✅
+
+> ✅ 커밋하면 GitHub Pages URL이 1~2분 안에 자동 업데이트됩니다.
 
 ---
 
