@@ -13,7 +13,7 @@
 → `index.html` 출장보고서가 **자동 완성**되고  
 → GitHub Pages로 **웹 URL이 생성**됩니다.
 
-**완성 예시 (SID 2026):** [https://waterfirst.github.io/sid-display-week-2026](https://waterfirst.github.io/awe_2026_LA/)
+**완성 예시 (SID 2026):** [https://waterfirst.github.io/awe_2026_LA/](https://waterfirst.github.io/awe_2026_LA/)
 
 ---
 
