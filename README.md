@@ -44,9 +44,23 @@
 
 ---
 
-## 2단계 — 이 레포 Fork
+## 2단계 — 템플릿 가져오기
 
-**Fork = 나만의 복사본 만들기**
+두 가지 방법 중 하나를 선택합니다.
+
+| | 방법 A — Fork | 방법 B — Clone |
+|---|---|---|
+| 난이도 | 쉬움 (클릭만) | 보통 (Git 명령어) |
+| GitHub 계정 필요 | 필요 | 필요 |
+| Git 설치 필요 | 불필요 | **필요** |
+| 원본 업데이트 반영 | 가능 | 수동 |
+| 추천 대상 | 비개발자 | Git 익숙한 분 |
+
+---
+
+### 방법 A — Fork (추천, 클릭만)
+
+**Fork = GitHub에서 바로 내 계정으로 복사**
 
 1. 이 페이지 상단 우측 **Fork** 버튼 클릭
 
@@ -59,6 +73,76 @@
 3. 잠시 후 `https://github.com/[내 아이디]/awe_2026_LA` 로 이동됨
 
 > ✅ 이제 이 레포는 **내 소유**입니다. 자유롭게 수정·배포 가능.
+
+---
+
+### 방법 B — Clone (Git 사용자용)
+
+**Clone = 로컬 PC로 직접 다운로드 후 내 레포에 올리기**
+
+#### B-1. Git 설치 확인
+
+```bash
+git --version
+# git version 2.x.x 가 나오면 설치됨
+```
+
+설치 안 됐다면: https://git-scm.com/downloads 에서 다운로드
+
+#### B-2. 클론
+
+```bash
+# 원하는 폴더로 이동 후
+git clone https://github.com/waterfirst/awe_2026_LA.git
+cd awe_2026_LA
+```
+
+#### B-3. 내 GitHub에 새 레포 만들기
+
+1. https://github.com/new 접속
+2. Repository name: `awe_2026_LA` 입력
+3. **Public** 선택 (GitHub Pages 무료 배포에 필요)
+4. **README 체크 해제** (이미 있으므로)
+5. **Create repository** 클릭
+
+#### B-4. 원격 주소를 내 레포로 변경
+
+```bash
+# 기존 원본 연결 제거 후 내 레포로 교체
+git remote remove origin
+git remote add origin https://github.com/[내 아이디]/awe_2026_LA.git
+
+# 내 레포로 업로드
+git push -u origin main
+```
+
+> 💡 `[내 아이디]` 자리에 본인 GitHub 사용자 이름 입력  
+> 예) `git remote add origin https://github.com/hong-gildong/awe_2026_LA.git`
+
+#### B-5. 이후 작업 (사진·메모 추가할 때마다)
+
+```bash
+# 파일 추가/수정 후
+git add .
+git commit -m "사진 및 메모 추가"
+git push origin main
+```
+
+> ✅ Push 할 때마다 GitHub Pages가 자동으로 업데이트됩니다.
+
+---
+
+#### 나중에 원본 업데이트 반영하기 (선택사항)
+
+```bash
+# 원본 레포를 upstream으로 등록 (최초 1회)
+git remote add upstream https://github.com/waterfirst/awe_2026_LA.git
+
+# 원본의 최신 변경사항 가져오기
+git fetch upstream
+git merge upstream/main
+git push origin main
+```
 
 ---
 
