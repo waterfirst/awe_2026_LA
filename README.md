@@ -390,13 +390,14 @@ Antigravity 작업이 끝난 화면에서:
 
 ```
 우측 상단 또는 하단의 "Publish" / "Share" / "Deploy" 버튼 클릭
-→ URL 즉시 발급
-   예) https://[프로젝트명].antigravity.google
+→ URL 즉시 발급 (10~30초)
+   예) https://[프로젝트-ID].web.app
+   또는 https://[서비스명]-[난수].run.app
 → 이 URL을 카카오톡·이메일로 공유 ✅
 ```
 
 > ✅ 추가 설치 없이 지금 당장 공유 가능  
-> ℹ️ URL 형식이 github.io가 아닌 antigravity.google 도메인
+> ℹ️ URL 형식이 github.io가 아닌 Firebase(.web.app) 또는 Cloud Run(.run.app) 도메인
 
 ---
 
@@ -470,7 +471,7 @@ git push origin main
 |---|---|---|---|
 | Git 설치 | 불필요 | 불필요 | **필요** |
 | 난이도 | ⭐ 매우 쉬움 | ⭐⭐ 쉬움 | ⭐⭐⭐ 보통 |
-| URL 형식 | antigravity.google/... | github.io/... | github.io/... |
+| URL 형식 | .web.app 또는 .run.app | github.io/... | github.io/... |
 | 사진 별도 업로드 | 불필요 | 내장형이면 불필요 | 내장형이면 불필요 |
 | 추천 대상 | 모든 분 | 비개발자 | 개발자 |
 
